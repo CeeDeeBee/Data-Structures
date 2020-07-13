@@ -51,13 +51,11 @@ class LinkedList:
         if self.head is None:
             return None
 
-        if self.head.get_next() is None:
-            tail = self.tail
-
+        if self.head is self.tail:
+            value = self.head.get_value()
             self.head = None
             self.tail = None
-
-            return tail.get_value()
+            return value
 
         current = self.head
         while current.get_next() is not self.tail:
