@@ -31,6 +31,16 @@ class LinkedList:
             self.tail.set_next(new_node)
             self.tail = new_node
 
+    def add_to_head(self, value):
+        new_node = Node(value)
+
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.set_next(self.head)
+            self.head = new_node
+
     def remove_head(self):
         if self.head is None:
             return None
@@ -65,6 +75,7 @@ class LinkedList:
 
         value = self.tail.get_value()
         self.tail = current
+        self.tail.set_next(None)
         return value
 
     def contains(self, value):
