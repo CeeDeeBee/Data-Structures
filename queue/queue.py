@@ -1,3 +1,4 @@
+from singly_linked_list import LinkedList
 """
 A queue is a data structure whose primary purpose is to store and
 return elements in First In First Out order. 
@@ -9,6 +10,10 @@ return elements in First In First Out order.
    Make sure the Queue tests pass.
 3. What is the difference between using an array vs. a linked list when 
    implementing a Queue?
+   Again, the main difference is the time complexity of the two data structures. 
+   Here, dequeue method is O(n) with a list and O(1) with a linked list. The same 
+   may also be said for the enqueue method if appending to a dynamic list is considered
+   to be O(n).
    
 Stretch: What if you could only use instances of your Stack class to implement the Queue?
          What would that look like? How many Stacks would you need? Try it!
@@ -18,17 +23,17 @@ Stretch: What if you could only use instances of your Stack class to implement t
 class Queue:
     def __init__(self):
         self.size = 0
-        self.storage = []
+        self.storage = LinkedList()
 
     def __len__(self):
         return self.size
 
     def enqueue(self, value):
         self.size += 1
-        self.storage.append(value)
+        self.storage.add_to_tail(value)
 
     def dequeue(self):
         if self.size == 0:
             return None
         self.size -= 1
-        return self.storage.pop(0)
+        return self.storage.remove_head()
