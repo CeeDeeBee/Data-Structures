@@ -116,6 +116,7 @@ class DoublyLinkedList:
                 self.tail = self.tail.prev
             node.remove()
             node.next = self.head
+            node.prev = None
             self.head.prev = node
             self.head = node
             # dryish way
@@ -134,6 +135,7 @@ class DoublyLinkedList:
             node.remove()
             self.tail.next = node
             node.prev = self.tail
+            node.next = None
             self.tail = node
             # dryish way
             # self.length -= 1

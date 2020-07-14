@@ -36,7 +36,6 @@ class Queue:
             return None
         self.size -= 1
         for _ in range(len(self.stack1)):
-            node = self.stack1.pop()
-            self.stack2.push(node)
+            self.stack2.push(self.stack1.pop())
 
         return self.stack2.pop()
