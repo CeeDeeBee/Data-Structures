@@ -10,7 +10,7 @@ class ListNode:
         self.value = value
         self.next = next
 
-    def delete(self):
+    def remove(self):
         if self.next is not None:
             self.next.prev = self.prev
 
@@ -63,7 +63,7 @@ class DoublyLinkedList:
             self.head = None
             self.tail = None
         else:
-            self.head.delete()
+            self.head.remove()
             self.head = self.head.next
 
         self.length -= 1
@@ -99,7 +99,7 @@ class DoublyLinkedList:
             self.head = None
             self.tail = None
         else:
-            self.tail.delete()
+            self.tail.remove()
             self.tail = self.tail.prev
 
         self.length -= 1
@@ -114,9 +114,13 @@ class DoublyLinkedList:
         if self.head.next is not None and node is not self.head:
             if node is self.tail:
                 self.tail = self.tail.prev
-            node.delete()
-            self.length -= 1
-            self.add_to_head(node.value)
+            node.remove()
+            node.next = self.head
+            self.head.prev = node
+            self.head = node
+            # dryish way
+            # self.length -= 1
+            # self.add_to_head(node.value)
 
     """
     Removes the input node from its current spot in the 
@@ -127,9 +131,13 @@ class DoublyLinkedList:
         if self.head.next is not None and node is not self.tail:
             if node is self.head:
                 self.head = self.head.next
-            node.delete()
-            self.length -= 1
-            self.add_to_tail(node.value)
+            node.remove()
+            self.tail.next = node
+            node.prev = self.tail
+            self.tail = node
+            # dryish way
+            # self.length -= 1
+            # self.add_to_tail(node.value)
 
     """
     Deletes the input node from the List, preserving the 
@@ -140,12 +148,13 @@ class DoublyLinkedList:
         if self.head.next is None:
             self.head = None
             self.tail = None
-        elif node is self.head:
-            node.delete()
-            self.head = node.next
-        elif node is self.tail:
-            node.delete()
-            self.tail = node.prev
+        else:
+            if node is self.head:
+                self.head = node.next
+            elif node is self.tail:
+                self.tail = node.prev
+
+            node.remove()
 
         self.length -= 1
 
